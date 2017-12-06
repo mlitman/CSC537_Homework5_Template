@@ -1,5 +1,8 @@
 package com.example.awesomefat.csc537_homework5_template;
 
+import android.view.ViewGroup;
+import android.widget.TextView;
+
 /**
  * Created by awesomefat on 11/28/17.
  */
@@ -15,6 +18,74 @@ public class Node
         this.payload = payload;
         this.leftChild = null;
         this.rightChild = null;
+    }
+
+    private void visitMyself(ViewGroup vg)
+    {
+        //visit ourselves
+        TextView tv = new TextView(Core.context);
+        tv.setText("" + this.payload);
+        vg.addView(tv);
+    }
+
+    private void visitRight(ViewGroup vg)
+    {
+        //visit right
+        if(this.rightChild != null)
+        {
+            this.rightChild.visitInOrder(vg);
+        }
+    }
+
+    public void visitPreOrder(ViewGroup vg)
+    {
+        this.visitMyself(vg);
+
+        //visit left
+        if(this.leftChild != null)
+        {
+            this.leftChild.visitPreOrder(vg);
+        }
+
+        //visit right
+        if(this.rightChild != null)
+        {
+            this.rightChild.visitPreOrder(vg);
+        }
+    }
+
+    public void visitPostOrder(ViewGroup vg)
+    {
+        //visit left
+        if(this.leftChild != null)
+        {
+            this.leftChild.visitPostOrder(vg);
+        }
+
+        //visit right
+        if(this.rightChild != null)
+        {
+            this.rightChild.visitPostOrder(vg);
+        }
+
+        this.visitMyself(vg);
+    }
+
+    public void visitInOrder(ViewGroup vg)
+    {
+        //visit left
+        if(this.leftChild != null)
+        {
+            this.leftChild.visitInOrder(vg);
+        }
+
+        this.visitMyself(vg);
+
+        //visit right
+        if(this.rightChild != null)
+        {
+            this.rightChild.visitInOrder(vg);
+        }
     }
 
     //the rules of a binary tree are such that:
